@@ -10,7 +10,7 @@ AppDataSource.initialize().then(async () => {
 
     app.use(express.json());
     app.set("trust proxy", true);
-    app.use("/public", express.static(path.join(__dirname, "public")));
+    app.use("/public", express.static(path.join(__dirname, "public", "uploads")));
     app.use("/api/profiles", profileRoutes);
 
     app.listen(port, () => {

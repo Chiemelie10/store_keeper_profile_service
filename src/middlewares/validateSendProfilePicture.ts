@@ -13,10 +13,10 @@ export const validateSendProfilePictureData = async (req: Request, res: Response
             errors["profile_picture"] = profilePictureErrors;
         }
 
-        if (file.fieldname === "profile_picture" && file.size > 5 * 1024 * 1024) {
-            profilePictureErrors.push("File size is greater than 5 MB.");
-            errors["profile_picture"] = profilePictureErrors;
-        }
+        // if (file.fieldname === "profile_picture" && file.size > 5 * 1024 * 1024) {
+        //     profilePictureErrors.push("File size is greater than 5 MB.");
+        //     errors["profile_picture"] = profilePictureErrors;
+        // }
     }
 
     if (Object.keys(errors).length > 0) {

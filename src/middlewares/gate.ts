@@ -10,7 +10,7 @@ export async function gateKeeper(req: Request, res: Response, next: NextFunction
         return res.status(401).json({ error: "Unauthorized" });
     }
 
-    if (req.method === "PUT" || req.method === "DELETE") {
+    if (req.method === "PUT" || req.method === "PATCH") {
         const { id } = req.params
 
         const profile = await AppDataSource.getRepository(Profile)
@@ -18,6 +18,12 @@ export async function gateKeeper(req: Request, res: Response, next: NextFunction
             .select(["profiles.user_id"])
             .where("profiles.id = :id", { id })
             .getOne();
+
+        if (!profile) {
+            return res.status(404).json({
+                error: "Profile was not found."
+            });
+        }
 
         if (authUserId != profile.user_id && !isSuperuser) {
             return res.status(403).json({ error: "Profile can only be updated or deleted by the owner." });
